@@ -22,7 +22,7 @@ const Cast = () => {
           return (
             <li key={id}>
               <img
-                scr={`https://image.tmdb.org/t/p/w500/${profile_path}`}
+                src={`https://image.tmdb.org/t/p/w500/${profile_path}`}
                 alt={name}
                 width="100"
               />
