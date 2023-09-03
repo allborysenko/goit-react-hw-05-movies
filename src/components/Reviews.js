@@ -5,7 +5,7 @@ import fetchMovies from './Api/api';
 const Reviews = () => {
   const { movieId } = useParams();
 
-  const [reviews, setReviews] = useState(null);
+  const [reviews, setReviews] = useState([]);
   console.log('reviews', reviews);
 
   useEffect(() => {
@@ -17,18 +17,19 @@ const Reviews = () => {
 
   return (
     <>
-      {reviews ? (
-        reviews.map(({ author, id, content }) => {
+      {reviews?.length === 0 && (
+        <p>We don't have any reviews for this movies</p>
+      )}
+      <ul>
+        {reviews.map(review => {
           return (
-            <li key={id}>
-              <h2>Author: {author}</h2>
-              <p>Content: {content}</p>
+            <li key={review.id}>
+              <p>Author: {review.author}</p>
+              <p>{review.content}</p>
             </li>
           );
-        })
-      ) : (
-        <h3>We do not have any reviews for this movie.</h3>
-      )}
+        })}
+      </ul>
     </>
   );
 };
