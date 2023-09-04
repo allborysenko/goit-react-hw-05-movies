@@ -1,15 +1,16 @@
 import { Link } from 'react-router-dom';
+import { Title, Wrap } from './Homelist.styled';
 
 const Homelist = ({ movies }) => {
   return (
     <>
-      <h2>Trending today</h2>
+      <Title>Trending today</Title>
       <ul>
         {movies.map(movie => {
           return (
-            <li key={movie.id}>
+            <Wrap key={movie.id}>
               <Link to={`/movies/${movie.id}`}> {movie.original_title}</Link>
-            </li>
+            </Wrap>
           );
         })}
       </ul>

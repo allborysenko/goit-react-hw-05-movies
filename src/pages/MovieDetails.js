@@ -1,11 +1,12 @@
 import fetchMovies from 'components/Api/api';
-import { useEffect, useState } from 'react';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { useEffect, useState, useRef, Suspense } from 'react';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
   const [selectedMovie, setSelectedMovie] = useState([]);
-  // console.log('selectedMovie', selectedMovie);
+  const location = useLocation();
+  const backLinkLocationRef = useRef(location.state?.from ?? '/movies');
 
   useEffect(() => {
     fetchMovies(`/movie/${movieId}`)
@@ -29,20 +30,26 @@ const MovieDetails = () => {
     vote_average,
   } = selectedMovie;
 
+  console.log('location', location);
+
   return (
     <>
+      <Link to={backLinkLocationRef.current}>Back</Link>
       <h1>{title}</h1>
-      <img
-        alt={poster_path}
-        src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
-        width={250}
-      ></img>
-      <h2>Overview</h2>
-      <p>{overview}</p>
-      <p>{genres ? genres.map(({ name }) => name).join(', ') : ' '}</p>
-      <p>Release date: {release_date}</p>
-      <p>Popularity: {popularity}</p>
-      <p>Vote average: {vote_average}</p>
+
+     
+        <img
+          alt={poster_path}
+          src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+          width={250}
+        ></img>
+        <h2>Overview</h2>
+        <p>{overview}</p>
+        <p>{genres ? genres.map(({ name }) => name).join(', ') : ' '}</p>
+        <p>Release date: {release_date}</p>
+        <p>Popularity: {popularity}</p>
+        <p>Vote average: {vote_average}</p>
+
 
       <ul>
         <li>
@@ -52,7 +59,10 @@ const MovieDetails = () => {
           <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
         </li>
       </ul>
-      <Outlet />
+      <Suspense>
+        <Outlet />
+        <Outlet />
+      </Suspense>
     </>
   );
 };

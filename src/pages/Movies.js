@@ -1,12 +1,13 @@
+
 import fetchMovies from 'components/Api/api';
 import { useState, useEffect } from 'react';
-import { useSearchParams, Link } from 'react-router-dom';
+import { useSearchParams, Link, useLocation } from 'react-router-dom';
 
 const Movies = () => {
   const [searchParams, setSerchParams] = useSearchParams();
   const movieId = searchParams.get('movieId')?? '';
   const [movie, setMovie] = useState([]);
-  console.log('movie', movie)
+  const location = useLocation();
 
  useEffect(() => {
    if (!movieId) return;
@@ -29,7 +30,7 @@ const Movies = () => {
      setSerchParams({ movieId: movieIdValue });
    };
 
-      
+      console.log('location', location)
 
   return (
     <div>
@@ -41,7 +42,7 @@ const Movies = () => {
         {movie.map(movie => {
           return (
             <li key={movie.id}>
-              <Link to={`/movies/${movie.id}`}>
+              <Link to={`/movies/${movie.id}`} state={{ from: location }}>
                 {movie.title}
               </Link>
             </li>
