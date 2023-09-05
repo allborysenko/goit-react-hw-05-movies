@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-
 export const Title = styled.h2`
   padding-left: 40px;
   list-style: none;
@@ -14,7 +13,4 @@ export const Wrap = styled.li`
   display: block;
   margin-bottom: 8px;
   text-decoration: none;
-  
-  
-
 `;

@@ -1,36 +1,34 @@
-
 import fetchMovies from 'components/Api/api';
 import { useState, useEffect } from 'react';
 import { useSearchParams, Link, useLocation } from 'react-router-dom';
 
 const Movies = () => {
   const [searchParams, setSerchParams] = useSearchParams();
-  const movieId = searchParams.get('movieId')?? '';
+  const movieId = searchParams.get('movieId') ?? '';
   const [movie, setMovie] = useState([]);
   const location = useLocation();
 
- useEffect(() => {
-   if (!movieId) return;
-   fetchMovies('/search/movie', movieId)
-     .then(resp => {
-       if (resp.results.length === 0) {
-         return 'Sorry, but nothing was found';
-       }
-       return setMovie(resp.results);
-     })
-     .catch(error => console.log(error));
- }, [movieId]);
-  
-  
-   const updateQueryString = ev => {
-     const movieIdValue = ev.target.value.trim();
-     if (movieIdValue === '') {
-       return setSerchParams({});
-     }
-     setSerchParams({ movieId: movieIdValue });
-   };
+  useEffect(() => {
+    if (!movieId) return;
+    fetchMovies('/search/movie', movieId)
+      .then(resp => {
+        if (resp.results.length === 0) {
+          return 'Sorry, but nothing was found';
+        }
+        return setMovie(resp.results);
+      })
+      .catch(error => console.log(error));
+  }, [movieId]);
 
-      console.log('location', location)
+  const updateQueryString = ev => {
+    const movieIdValue = ev.target.value.trim();
+    if (movieIdValue === '') {
+      return setSerchParams({});
+    }
+    setSerchParams({ movieId: movieIdValue });
+  };
+
+  console.log('location', location);
 
   return (
     <div>

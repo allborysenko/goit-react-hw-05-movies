@@ -1,27 +1,34 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { Suspense } from 'react';
-import { List } from './Loyaout.styled';
+import {
+  Container,
+  Header,
+  List,
+  ListItem,
+  StyledNavLink,
+  Main,
+  Loading,
+} from './Loyaout.styled';
 
 const Loyaout = () => {
   return (
-    <div>
-      <header>
+    <Container>
+      <Header>
         <List>
-          <li>
-            <NavLink to="/">Home</NavLink>
-          </li>
-          <li>
-            <NavLink to="/movies">Movies</NavLink>
-          </li>
+          <ListItem>
+            <StyledNavLink to="/">Home</StyledNavLink>
+          </ListItem>
+          <ListItem>
+            <StyledNavLink to="/movies">Movies</StyledNavLink>
+          </ListItem>
         </List>
-      </header>
-      <main>
-        <Suspense fallback={<div>Loading...</div>}>
+      </Header>
+      <Main>
+        <Suspense fallback={<Loading>Loading...</Loading>}>
           <Outlet />
         </Suspense>
-      </main>
-    </div>
-    
+      </Main>
+    </Container>
   );
 };
 

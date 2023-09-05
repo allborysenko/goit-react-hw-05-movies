@@ -1,6 +1,20 @@
 import fetchMovies from 'components/Api/api';
 import { useEffect, useState, useRef, Suspense } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import {
+  FilmInfoContainer,
+  BackLink,
+  FilmTitle,
+  FilmImage,
+  OverviewHeader,
+  FilmDescription,
+  GenreList,
+  ReleaseDate,
+  Popularity,
+  VoteAverage,
+  LinksList,
+  ListItem,
+} from './MovieDetails.styled';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -30,40 +44,38 @@ const MovieDetails = () => {
     vote_average,
   } = selectedMovie;
 
-  console.log('location', location);
-
   return (
-    <>
-      <Link to={backLinkLocationRef.current}>Back</Link>
-      <h1>{title}</h1>
+    <FilmInfoContainer>
+      <BackLink to={backLinkLocationRef.current}>Back</BackLink>
+      <FilmTitle>{title}</FilmTitle>
 
-     
-        <img
-          alt={poster_path}
-          src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
-          width={250}
-        ></img>
-        <h2>Overview</h2>
-        <p>{overview}</p>
-        <p>{genres ? genres.map(({ name }) => name).join(', ') : ' '}</p>
-        <p>Release date: {release_date}</p>
-        <p>Popularity: {popularity}</p>
-        <p>Vote average: {vote_average}</p>
+      <FilmImage
+        alt={poster_path}
+        src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+        width={250}
+      ></FilmImage>
+      <OverviewHeader>Overview</OverviewHeader>
+      <FilmDescription>{overview}</FilmDescription>
+      <GenreList>
+        {genres ? genres.map(({ name }) => name).join(', ') : ' '}
+      </GenreList>
+      <ReleaseDate>Release date: {release_date}</ReleaseDate>
+      <Popularity>Popularity: {popularity}</Popularity>
+      <VoteAverage>Vote average: {vote_average}</VoteAverage>
 
-
-      <ul>
-        <li>
+      <LinksList>
+        <ListItem>
           <Link to={`/movies/${movieId}/cast`}>Cast</Link>
-        </li>
-        <li>
+        </ListItem>
+        <ListItem>
           <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
-        </li>
-      </ul>
+        </ListItem>
+      </LinksList>
       <Suspense>
         <Outlet />
         <Outlet />
       </Suspense>
-    </>
+    </FilmInfoContainer>
   );
 };
 
