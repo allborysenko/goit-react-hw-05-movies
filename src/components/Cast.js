@@ -36,8 +36,7 @@ const Cast = () => {
                 />
               ) : (
                 <div className="cast-icon">
-                  <FaUser size={140}  />
-                  {/* Встановлюємо бажаний розмір іконки */}
+                  <FaUser size={140} />
                 </div>
               )}
               <CastName>{name}</CastName>
