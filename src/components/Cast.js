@@ -9,6 +9,8 @@ import {
   CastCharacter,
 } from './Cast.styled';
 
+import { FaUser } from 'react-icons/fa';
+
 const Cast = () => {
   const { movieId } = useParams();
   const [cast, setCast] = useState(null);
@@ -25,12 +27,19 @@ const Cast = () => {
       {cast &&
         cast.map(({ id, profile_path, name, character }) => {
           return (
-            <CastItem key={id}>
-              <CastImage
-                src={`https://image.tmdb.org/t/p/w500/${profile_path}`}
-                alt={name}
-                width="100"
-              />
+            <CastItem>
+              {profile_path ? (
+                <CastImage
+                  src={`https://image.tmdb.org/t/p/w500/${profile_path}`}
+                  alt={name}
+                  width="100"
+                />
+              ) : (
+                <div className="cast-icon">
+                  <FaUser size={140}  />
+                  {/* Встановлюємо бажаний розмір іконки */}
+                </div>
+              )}
               <CastName>{name}</CastName>
               <CastCharacter>Character: {character}</CastCharacter>
             </CastItem>
