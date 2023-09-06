@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 import { useSearchParams, Link, useLocation } from 'react-router-dom';
 
 const Movies = () => {
-  const [searchParams, setSerchParams] = useSearchParams();
-  const movieId = searchParams.get('movieId') ?? '';
+  const [searchParams, setSearchParams] = useSearchParams();
+  const movieId = searchParams.get('query') ?? '';
   const [movie, setMovie] = useState([]);
   const location = useLocation();
 
@@ -21,19 +21,23 @@ const Movies = () => {
   }, [movieId]);
 
   const updateQueryString = ev => {
-    const movieIdValue = ev.target.value.trim();
-    if (movieIdValue === '') {
-      return setSerchParams({});
-    }
-    setSerchParams({ movieId: movieIdValue });
+    ev.preventDefault();
+    const search = ev.target.elements.search.value;
+    setSearchParams({ query: search });
   };
-
-  console.log('location', location);
 
   return (
     <div>
-      <form>
-        <input value={movieId} type="text" onChange={updateQueryString}></input>
+      <form onSubmit={updateQueryString}>
+        <input
+          name="search"
+          type="text"
+          autoComplete="off"
+          autoFocus
+          placeholder="Search movies"
+          defaultValue={movieId}
+        ></input>
+
         <button type="submit">Search</button>
       </form>
       <ul>

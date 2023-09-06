@@ -27,7 +27,7 @@ const Cast = () => {
       {cast &&
         cast.map(({ id, profile_path, name, character }) => {
           return (
-            <CastItem>
+            <CastItem key={id}>
               {profile_path ? (
                 <CastImage
                   src={`https://image.tmdb.org/t/p/w500/${profile_path}`}

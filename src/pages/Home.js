@@ -4,7 +4,6 @@ import Homelist from 'components/Homelist';
 
 const Home = () => {
   const [movies, setMovies] = useState(null);
-  console.log('movies', movies);
 
   useEffect(() => {
     fetchMovies('/trending/movie/day')
