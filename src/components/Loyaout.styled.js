@@ -33,8 +33,11 @@ export const StyledNavLink = styled(NavLink)`
   font-weight: bold;
   transition: color 0.3s ease;
 
-  &:hover {
+  :hover {
     color: #007bff;
+  }
+  &.active{
+    color: red;
   }
 `;
 

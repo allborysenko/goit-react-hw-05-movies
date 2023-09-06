@@ -20,7 +20,7 @@ const MovieDetails = () => {
   const { movieId } = useParams();
   const [selectedMovie, setSelectedMovie] = useState([]);
   const location = useLocation();
-  const backLinkLocationRef = useRef(location.state?.from ?? '/movies');
+  const backLinkLocationRef = useRef(location.state?.from ?? '/');
 
   useEffect(() => {
     fetchMovies(`/movie/${movieId}`)
